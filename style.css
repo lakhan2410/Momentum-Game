@@ -1,0 +1,144 @@
+/* --- Global & Typography --- */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1e1e2f; /* Deep blue/dark theme */
+    color: #f0f0f0; /* Light text */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 30px;
+}
+
+.game-header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: #4CAF50; /* Primary MMT/Finance Green */
+    margin-bottom: 0.1em;
+}
+
+/* --- Game Grid Layout --- */
+.memory-game {
+    width: 650px;
+    height: 350px;
+    display: flex;
+    flex-wrap: wrap;
+    perspective: 1000px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 2px solid #33334f; /* Border around the game area */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Card Base Styles --- */
+.memory-card {
+    width: calc(25% - 20px); 
+    height: calc(50% - 20px);
+    margin: 10px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* --- Card Interaction --- */
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
+.memory-card.disable {
+    pointer-events: none;
+}
+
+/* --- Card Faces --- */
+.front-face, .back-face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 6px;
+    backface-visibility: hidden;
+    pointer-events: none; 
+    box-sizing: border-box;
+    display: flex; /* Centering the back text */
+    justify-content: center;
+    align-items: center;
+}
+
+.front-face {
+    transform: rotateY(180deg);
+    background-color: #ffffff; /* White card face for images */
+}
+
+.back-face {
+    background-color: #4CAF50; /* MMT Finance Green card back */
+    border: 3px solid #f0f0f0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #1e1e2f;
+    /* Removed all hard-coded text via the JS update */
+}
+
+.front-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 5px;
+}
+
+/* --- Match Animation (Cool Shrink & Slide) --- */
+
+@keyframes matched-slide-away {
+    0% { transform: translate(0, 0); opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { transform: translate(150px, -50px) scale(0.1); opacity: 0; }
+}
+
+.memory-card.match {
+    /* Apply animation for cool effect */
+    animation: matched-slide-away 0.8s forwards;
+    pointer-events: none;
+}
+
+/* --- Footer & Button --- */
+.game-footer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#reset-button {
+    padding: 10px 25px;
+    background-color: #33334f;
+    color: #FFC107;
+    border: 2px solid #FFC107;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+#reset-button:hover {
+    background-color: #4CAF50;
+    color: #1e1e2f;
+    border-color: #4CAF50;
+}
+
+#win-message {
+    margin-top: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.hidden {
+    display: none;
+}
